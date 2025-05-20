@@ -17,6 +17,10 @@ jobs:
       - run:
           name: Docker login
           command: |
+            if [ -z "$DOCKER_USERNAME" ] || [ -z "$DOCKER_PASSWORD" ]; then
+              echo "DOCKER_USERNAME or DOCKER_PASSWORD is not set. Please add them as environment variables in your project settings or context."
+              exit 1
+            fi
             echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 
       - run:
